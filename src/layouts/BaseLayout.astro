@@ -1,0 +1,169 @@
+---
+import Logo from "@components/Logo.astro";
+import Footer from "@components/Footer.astro";
+import NavLink from "@components/NavLink.astro";
+
+const NAV_LINK = ["blog", "learn"] as const;
+
+type Page = (typeof NAV_LINK)[number] | "index";
+
+type Props = {
+  page: Page;
+  title: string;
+  description?: string;
+};
+
+const {
+  page,
+  title,
+  description = "The library for web and native user interfaces",
+} = Astro.props;
+
+console.log({ title, description });
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+
+    <link
+      rel="preload"
+      href="/fonts/Source-Code-Pro-Regular.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="preload"
+      href="https://react.dev/fonts/Optimistic_Display_W_Md.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="preload"
+      href="https://react.dev/fonts/Optimistic_Display_W_SBd.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="preload"
+      href="https://react.dev/fonts/Optimistic_Display_W_Bd.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="preload"
+      href="https://react.dev/fonts/Optimistic_Text_W_Md.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="preload"
+      href="https://react.dev/fonts/Optimistic_Text_W_Bd.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="preload"
+      href="https://react.dev/fonts/Optimistic_Text_W_Rg.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="preload"
+      href="https://react.dev/fonts/Optimistic_Text_W_It.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin="anonymous"
+    />
+  </head>
+
+  <body
+    class="bg-wash font-text text-lg font-medium leading-base text-secondary antialiased dark:bg-wash-dark dark:text-secondary-dark"
+  >
+    <div class="sticky top-0 z-50">
+      <nav
+        class="flex h-16 w-full items-center justify-between bg-wash bg-opacity-90 px-1.5 shadow-nav dark:bg-wash-dark dark:bg-opacity-95 dark:shadow-nav-dark lg:pl-4 lg:pr-5"
+      >
+        <div>
+          <a href="/" class="p-1 transition-transform active:scale-95">
+            <Logo
+              class="mr-0 h-10 w-10 text-sm text-link dark:text-link-dark"
+            />
+            <span class="sr-only">React</span>
+          </a>
+        </div>
+
+        <div class="text-base">
+          <div class="flex flex-auto">
+            {
+              NAV_LINK.map((navLink) => (
+                <NavLink href={`/${navLink}`} isActive={page === navLink}>
+                  {navLink}
+                </NavLink>
+              ))
+            }
+          </div>
+        </div>
+      </nav>
+    </div>
+
+    <main class="isolate">
+      <article
+        class="min-h-[70vh] break-words font-normal text-primary dark:text-primary-dark"
+      >
+        <slot />
+      </article>
+
+      <Footer />
+    </main>
+    <style is:global>
+      .mdx-heading {
+        scroll-margin-top: calc(4rem + 20px);
+        /* Space for the anchor */
+        padding-right: 1em;
+      }
+
+      .mdx-heading:before {
+        height: 6rem;
+        margin-top: -6rem;
+        visibility: hidden;
+        content: "";
+      }
+      .mdx-heading .mdx-header-anchor {
+        /* Prevent the anchor from
+     overflowing to its own line */
+        height: 0px;
+        width: 0px;
+      }
+      .mdx-heading .mdx-header-anchor svg {
+        display: inline;
+      }
+      .mdx-heading .mdx-header-anchor svg {
+        visibility: hidden;
+      }
+      .mdx-heading:hover .mdx-header-anchor svg {
+        visibility: visible;
+      }
+      .mdx-heading .mdx-header-anchor:focus svg {
+        visibility: visible;
+      }
+
+      .mdx-blockquote > span > p:first-of-type {
+        margin-bottom: 0;
+      }
+      .mdx-blockquote > span > p:last-of-type {
+        margin-bottom: 1rem;
+      }
+    </style>
+  </body>
+</html>

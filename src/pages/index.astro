@@ -1,0 +1,235 @@
+---
+import { Code as AstroCode } from "astro/components";
+import Shiki from "@components/Shiki.astro";
+import Logo from "@components/Logo.astro";
+import ButtonLink from "@components/ButtonLink.astro";
+import BaseLayout from "@layouts/BaseLayout.astro";
+
+import Section from "./_components/home/Section.astro";
+import Center from "./_components/home/Center.astro";
+import Header from "./_components/home/Header.astro";
+import Paragraph from "./_components/home/Paragraph.astro";
+import Code from "./_components/home/Code.astro";
+import FullBleed from "./_components/home/FullBleed.astro";
+import ExampleLayout from "./_components/home/ExampleLayout.astro";
+import ExampleResultPanel from "./_components/home/ExampleResultPanel.astro";
+import CommunityGallery from "./_components/home/CommunityGallery.astro";
+import { Video } from "./_components/home/Video";
+---
+
+<BaseLayout title="React" page="index">
+  <div class="mx-5 mb-20 mt-12 flex flex-col items-center lg:mb-32 lg:mt-24">
+    <Logo
+      class="mb-3 mr-0 mt-4 w-24 text-sm text-link lg:w-28 dark:text-link-dark"
+    />
+    <h1
+      class="font-display text-5xl font-semibold leading-snug text-primary lg:text-6xl dark:text-primary-dark"
+    >
+      React
+    </h1>
+    <p
+      class="max-w-lg py-1 text-center font-display text-4xl leading-snug text-secondary md:max-w-full dark:text-primary-dark"
+    >
+      The library for web and native user interfaces
+    </p>
+
+    <div class="mt-5 flex w-full flex-col gap-2 sm:w-auto sm:flex-row">
+      <ButtonLink href="/learn" type="primary" size="lg" label="Learn React">
+        Learn React
+      </ButtonLink>
+
+      <ButtonLink
+        size="lg"
+        type="secondary"
+        href="/reference/react"
+        label="API Reference"
+      >
+        API Reference
+      </ButtonLink>
+    </div>
+  </div>
+
+  <Section gradientDirection="left">
+    <Center>
+      <Header>Create user interfaces from components</Header>
+
+      <Paragraph>
+        React lets you build user interfaces out of individual pieces called
+        components. Create your own React components like <Code>
+          Thumbnail
+        </Code>, <Code>LikeButton</Code>, and <Code>Video</Code>. Then combine
+        them into entire screens, pages, and apps.
+      </Paragraph>
+    </Center>
+
+    <FullBleed>
+      <ExampleLayout>
+        <div
+          slot="left-content"
+          class="min-h-[200px] [&_pre]:!bg-transparent [&_pre]:!text-sm [&_pre]:!leading-6"
+        >
+          <AstroCode
+            code={`function Video({ video }) {
+  return (
+    <div>
+      <Thumbnail video={video} />
+      <a href={video.url}>
+        <h3>{video.title}</h3>
+        <p>{video.description}</p>
+      </a>
+      <LikeButton video={video} />
+    </div>
+  );
+}`}
+            lang="jsx"
+          />
+        </div>
+
+        <ExampleResultPanel slot="right-content">
+          {/** Render the Video component. NB: this is a React component **/}
+          <Video
+            client:visible
+            {/** 👈 Add the client directive **/}
+            video={{ title: "My video", description: "Video description" }}
+          />
+        </ExampleResultPanel>
+      </ExampleLayout>
+    </FullBleed>
+
+    <Center>
+      <Paragraph>
+        Whether you work on your own or with thousands of other developers,
+        using React feels the same. It is designed to let you seamlessly combine
+        components written by independent people, teams, and organizations.
+      </Paragraph>
+    </Center>
+  </Section>
+
+  <Section gradientDirection="left">
+    <Center>
+      <Header>Write components with code and markup</Header>
+
+      <Paragraph>
+        React components are JavaScript functions. Want to show some content
+        conditionally? Use an <Code>if</Code> statement. Displaying a list? Try array
+        <Code>map()</Code>. Learning React is learning programming.
+      </Paragraph>
+    </Center>
+
+    <FullBleed>
+      <ExampleLayout>
+        <div
+          slot="left-content"
+          {/** Similar style as before. Leverages Tailwind **/}
+          class="[&_pre]:!bg-transparent [&_pre]:!text-sm [&_pre]:!leading-6"
+        >
+          <AstroCode
+            code={`function VideoList({ videos, emptyHeading }) {
+  const count = videos.length;
+  let heading = emptyHeading;
+  if (count > 0) {
+    const noun = count > 1 ? 'Videos' : 'Video';
+    heading = count + ' ' + noun;
+  }
+  return (
+    <section>
+      <h2>{heading}</h2>
+      {videos.map(video =>
+        <Video key={video.id} video={video} />
+      )}
+    </section>
+  );
+}`}
+            lang="jsx"
+            theme="poimandres"
+          />
+        </div>
+
+        <ExampleResultPanel slot="right-content">
+          <div class="flex w-full flex-col gap-4">
+            <h2 class="mb-4 text-xl font-bold leading-snug text-primary">
+              2 videos
+            </h2>
+
+            <Video
+              client:visible
+              video={{ title: "My video", description: "Video description" }}
+            />
+            <Video
+              client:visible
+              video={{ title: "My video", description: "Video description" }}
+            />
+          </div>
+
+          <Shiki
+            code={`function Video({ video }) {
+  return (
+    <div>
+      <Thumbnail video={video} />
+      <a href={video.url}>
+        <h3>{video.title}</h3>
+        <p>{video.description}</p>
+      </a>
+      <LikeButton video={video} />
+    </div>
+  );
+}`}
+            lang="jsx"
+          />
+        </ExampleResultPanel>
+      </ExampleLayout>
+    </FullBleed>
+
+    <Center>
+      <Paragraph>
+        This markup syntax is called JSX. It is a JavaScript syntax extension
+        popularized by React. Putting JSX markup close to related rendering
+        logic makes React components easy to create, maintain, and delete.
+      </Paragraph>
+    </Center>
+  </Section>
+
+  <Section gradientDirection="left">
+    <Center>
+      <Header>Join a community of millions</Header>
+
+      <Paragraph>
+        You're not alone. Two million developers from all over the world visit
+        the React docs every month. React is something that people and teams can
+        agree on.
+      </Paragraph>
+    </Center>
+
+    <Center>
+      <Paragraph>
+        This is why React is more than a library, an architecture, or even an
+        ecosystem. React is a community. It's a place where you can ask for
+        help, find opportunities, and meet new friends. You will meet both
+        developers and designers, beginners and experts, researchers and
+        artists, teachers and students. Our backgrounds may be very different,
+        but React lets us all create user interfaces together.
+      </Paragraph>
+    </Center>
+
+    <CommunityGallery />
+
+    <div class="mb-6 mt-20 max-w-4xl px-5 text-center text-opacity-80 lg:px-0">
+      <Logo
+        class="mx-auto mb-10 mt-12 h-auto w-24 text-link lg:mb-8 lg:w-28 dark:text-link-dark"
+      />
+      <Header>
+        Welcome to the <br />
+        React community
+      </Header>
+
+      <ButtonLink
+        href="/learn"
+        type="primary"
+        size="lg"
+        label="Take the Tutorial"
+      >
+        Get Started
+      </ButtonLink>
+    </div>
+  </Section>
+</BaseLayout>

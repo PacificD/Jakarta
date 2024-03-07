@@ -1,0 +1,34 @@
+<div class="w-full lg:pl-10 lg:pr-5">
+  <div
+    class="mb-2 mt-12 lg:my-16 lg:rounded-2xl lg:bg-card lg:dark:bg-card-dark"
+  >
+    <div
+      class="flex flex-col items-center gap-0 bg-meta-gradient bg-cover bg-center bg-no-repeat shadow-inner-border dark:bg-meta-gradient-dark dark:shadow-inner-border-dark lg:flex-row lg:gap-5 lg:rounded-2xl lg:bg-gray-10 lg:bg-[length:60%_100%] lg:bg-right lg:dark:bg-gray-70"
+    >
+      <!-- remove "lg:-m-5 to see composition clearer. It is responsible for making one section pop" -->
+      <div
+        class="flex h-full w-full flex-1 flex-col bg-wash shadow-nav dark:bg-gray-95 dark:shadow-nav-dark lg:-m-5 lg:rounded-2xl"
+      >
+        <div
+          class="w-full border-b border-black/5 bg-card dark:border-white/5 dark:bg-wash-dark lg:rounded-t-2xl"
+        >
+          <h3
+            class="mx-5 my-1 select-none text-sm text-tertiary dark:text-tertiary-dark"
+          >
+            Video.js
+          </h3>
+        </div>
+        <!-- Left slot -->
+        <div class="p-4">
+          <slot name="left-content" />
+        </div>
+      </div>
+
+      <div
+        class="xs:p-5 mt-0 flex w-full flex-1 justify-center p-2.5 lg:-my-20 lg:p-10"
+      >
+        <slot name="right-content" />
+      </div>
+    </div>
+  </div>
+</div>
