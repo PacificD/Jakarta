@@ -1,6 +1,5 @@
 ---
 import { Code as AstroCode } from "astro/components";
-import Shiki from "@components/Shiki.astro";
 import Logo from "@components/Logo.astro";
 import ButtonLink from "@components/ButtonLink.astro";
 import BaseLayout from "@layouts/BaseLayout.astro";
@@ -160,22 +159,6 @@ import { Video } from "./_components/home/Video";
               video={{ title: "My video", description: "Video description" }}
             />
           </div>
-
-          <Shiki
-            code={`function Video({ video }) {
-  return (
-    <div>
-      <Thumbnail video={video} />
-      <a href={video.url}>
-        <h3>{video.title}</h3>
-        <p>{video.description}</p>
-      </a>
-      <LikeButton video={video} />
-    </div>
-  );
-}`}
-            lang="jsx"
-          />
         </ExampleResultPanel>
       </ExampleLayout>
     </FullBleed>

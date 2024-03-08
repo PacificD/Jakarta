@@ -4,6 +4,15 @@ import Link from "@components/Link.astro";
 import Intro from "@components/Intro.astro";
 import Divider from "@components/Divider.astro";
 import BlogLayout from "@layouts/BlogLayout.astro";
+// Import getCollection from astro:content
+import { getCollection } from "astro:content";
+// Import the BlogCard visual component
+import BlogCard from "@components/BlogCard.astro";
+// Import the getMonthName utility
+import { getMonthName } from "@utils/getMonthName";
+
+// Fetch all the blog posts
+const allBlogPosts = await getCollection("blog");
 ---
 
 <BlogLayout title="React Blog - React" header="React Blog">
@@ -49,4 +58,21 @@ import BlogLayout from "@layouts/BlogLayout.astro";
   </p>
 
   <Divider />
+  <div class="mt-12 flex flex-col gap-5 px-5 sm:-mx-5 lg:px-4">
+    {
+      allBlogPosts.map(({ data, slug }) => {
+        const url = `/blog/${data.year}/${data.month}/${data.day}/${slug}`;
+
+        return (
+          <BlogCard
+            url={url}
+            date={`${getMonthName(+data.month)} ${data.day}, ${data.year}`}
+            title={data.title}
+          >
+            {data.intro}
+          </BlogCard>
+        );
+      })
+    }
+  </div>
 </BlogLayout>
